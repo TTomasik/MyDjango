@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Movies
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            List of Movies:
+        </div>
+        <div class="panel-body">
+            <div>
+                <table class="table" id="movie-table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Director</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for a in movies %}
+                        <tr>
+                            <td><a href="{% url 'movie-details' a.id %}">{{ a.title }}</a></td>
+                            <td>{{ a.year }}</td>
+                            <td>{{ a.director }}</td>
+                            {% if perms.homework.change_movie %}
+                            <td><form action="{% url 'movie-update' a.id %}">
+                            <input type="submit" value="Edit" />
+                            </form></td>
+                            {% endif %}
+                            {% if perms.homework.delete_movie %}
+                            <td><form action="{% url 'movie-delete' a.id %}">
+                            <input type="submit" value="Delete" />
+                            </form></td>
+                            {% endif %}
+                        </tr>
+                        {#{% empty %}#}
+                        {#<tr>#}
+                        {# #}
+                        {#</tr>#}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if perms.homework.add_movie %}
+        <form action="{% url 'movie-add' %}">
+                            <input type="submit" value="Add Movie" />
+                            </form></td>
+        {% endif %}
+
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            try {
+                $('#movie-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip" // default is lfrtip, where the f is the filter
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

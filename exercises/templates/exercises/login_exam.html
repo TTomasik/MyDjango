@@ -1,0 +1,19 @@
+<html>
+    <body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="ZALOGUJ">
+        <a class="menuspace" href="{% url 'site-logout' %}?next=/log">LOGOUT</a>
+    </form>
+    <h1>Zalogowany: {{ request.user.username }}</h1>
+    </body>
+</html>
+
+
+
+
+
+
+
+

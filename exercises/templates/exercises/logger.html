@@ -1,0 +1,23 @@
+<html>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="LOGIN">
+        </form>
+
+
+
+
+        <form action="{% url 'site-logout' %}?next=/logger">
+            <input type="submit" value="LOGOUT">
+        </form>
+        <br><br>
+        ZALOGOWANY JAKO ----> {{ request.user.username }}
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    People
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <b>LIST OF PERSONS:</b>
+        </div>
+        <div class="panel-body">
+            <div>
+                <table class="table" id="movie-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for a in persons %}
+                        <tr>
+                            <td>{{ a.first_name }}</a></td>
+                            <td>{{ a.last_name }}</td>
+                            <td><form action="{% url 'update-person' a.id %}">
+                            <input type="submit" value="Edit" />
+                            </form></td>
+                        </tr>
+                        {#{% empty %}#}
+                        {#<tr>#}
+                        {# #}
+                        {#</tr>#}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <form action="{% url 'new-person' %}">
+                            <input type="submit" value="Add Person" />
+                            </form></td>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            try {
+                $('#movie-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip" // default is lfrtip, where the f is the filter
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

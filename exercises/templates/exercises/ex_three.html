@@ -1,0 +1,62 @@
+{% extends 'exercises/base.html' %}
+
+{% block title %}
+    Exercise Three
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Informations:
+        </div>
+        <div class="panel-body">
+
+            <form action="{% url 'ex-three' %}" method="post">
+
+                {% csrf_token %}
+                {{ form }}
+
+                <input type="submit" value="Send">
+            </form>
+
+
+            <p><b>Info:</b></p>
+            <div>
+                <table class="table" id="data-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Year</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for b in data %}
+                        <tr>
+                            <td>{{ b.name }}</td>
+                            <td>{{ b.surname }}</td>
+                            <td>{{ b.year }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            try {
+                $('#data-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip"
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

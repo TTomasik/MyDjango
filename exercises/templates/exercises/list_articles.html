@@ -1,0 +1,56 @@
+{% extends 'exercises/base.html' %}
+
+{% block title %}
+    Browse articles
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Active articles
+        </div>
+        <div class="panel-body">
+            <div>
+                <table class="table" id="articles-table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date added</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for a in articles %}
+                        <tr>
+                            <td>{{ a.title }}</td>
+                            <td>{{ a.author }}</td>
+                            <td>{{ a.date_added }}</td>
+                        </tr>
+                        {#{% empty %}#}
+                        {#<tr>#}
+                        {# #}
+                        {#</tr>#}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            try {
+                $('#articles-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip" // default is lfrtip, where the f is the filter
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

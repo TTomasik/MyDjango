@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ movie.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <b>MOVIE'S INFORMATION:</b>
+        </div>
+        <div class="panel-body">
+            <div>
+                <ul>
+                    <li><b>DIRECTOR:</b> {{ movie.director }}</li>
+                    <li><b>SCREENPLAY:</b> {{ movie.screenplay }}</li>
+                    <li><b>YEAR:</b> {{ movie.year }}</li>
+                    <li><b>RANKING (1-5):</b> {{ movie.ranking }}</li>
+                </ul>
+            </div>
+            <p><b>Actors:</b></p>
+            <div>
+                <table class="table" id="movies-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Role</th>
+
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for a in actors %}
+                        <tr>
+                            <td>{{ a.first_name }}</td>
+                            <td>{{ a.last_name }}</td>
+                            <td>{{ a.role }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            try {
+                $('#movies-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip"
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

@@ -1,0 +1,47 @@
+{% extends 'exercises/base.html' %}
+
+{% block title %}
+    Profile form
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Profile
+        </div>
+        <div class="panel-body">
+
+            {% if not data %}
+                <p><b>Add some info:</b></p>
+                <div>
+                <form method="post">
+                    {% csrf_token %}
+{#                    {{ form.as_ul }}#}
+                    {{ form.as_p }}
+                    <input type="text" name="aaa" value="Give us some private data">
+                    <input type="submit" value="Give us some private data">
+                </form>
+                <p>
+                    {% for err in form.non_field_errors %}
+                        <strong>
+                            {{ err|escape }}
+                        </strong>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if data %}
+                <p>
+                    {{ data.name }} <br/>
+                    {{ data.surname }} <br/>
+                    {{ data.www }} <br/>
+                    {{ data.email }} <br/>
+                    {{ data.aaa }} <br/>
+                </p>
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

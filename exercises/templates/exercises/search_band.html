@@ -1,0 +1,62 @@
+{% extends 'exercises/base.html' %}
+
+{% block title %}
+    Band's information
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Band's browser
+        </div>
+        <div class="panel-body">
+
+            <form action="{% url 'search-band' %}" method="post">
+
+                {% csrf_token %}
+                {{ form }}
+
+                <input type="submit" value="Search">
+            </form>
+
+
+            <p><b>Bands:</b></p>
+            <div>
+                <table class="table" id="bands-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date of the band</th>
+                        <th>Music type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for b in bands %}
+                        <tr>
+                            <td>{{ b.name }}</td>
+                            <td>{{ b.year }}</td>
+                            <td>{{ b.genre }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            try {
+                $('#bands-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip"
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+

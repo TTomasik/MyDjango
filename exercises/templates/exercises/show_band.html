@@ -1,0 +1,60 @@
+{% extends 'exercises/base.html' %}
+
+{% block title %}
+    Band's information
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Band's information: {{ band.name }}
+        </div>
+        <div class="panel-body">
+            <div>
+                <ul>
+                    <li>{{ band.name }}</li>
+                    <li>{{ band.year }}</li>
+                    <li>{{ band.still_active }}</li>
+                    <li>{{ miusic_type }}</li>
+                </ul>
+            </div>
+            <p><b>Albums:</b></p>
+            <div>
+                <table class="table" id="albums-table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Publication date</th>
+                        <th>Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody class="list">
+                    {% for a in albums %}
+                        <tr>
+                            <td>{{ a.title }}</td>
+                            <td>{{ a.publication_date }}</td>
+                            <td>{{ a.rate }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content_js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            try {
+                $('#albums-table').DataTable({
+                    "bFilter": true,
+                    "sDom": "lfrtip"
+                });
+            }
+            catch (err) {
+            }
+        });
+    </script>
+{% endblock %}
+
+
